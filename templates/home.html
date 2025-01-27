@@ -1,26 +1,113 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <title>FWI Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            gap: 20px;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .prediction {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 18px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            width: 90%;
+        }
+        .parameters ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+        .parameters li {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
 <body>
-    <div class="login">
-       <h1>FWI Prediction</h1>
-   
-        <!-- Main Input For Receiving Query to our ML -->
-       <form action="{{ url_for('predict_datapoint')}}" method="post">
-         <input type="text" name="Temperature" placeholder="Temperature" required="required" /><br>
-           <input type="text" name="RH" placeholder="RH" required="required" /><br>
-           <input type="text" name="Ws" placeholder="Ws" required="required" /><br>
-           <input type="text" name="Rain" placeholder="Rain" required="required" /><br>
-           <input type="text" name="FFMC" placeholder="FFMC" required="required" /><br>
-           <input type="text" name="DMC" placeholder="DMC" required="required" /><br>
-           <input type="text" name="ISI" placeholder="ISI" required="required" /><br>
-           <input type="text" name="Classes" placeholder="Classes" required="required" /><br>
-           <input type="text" name="Region" placeholder="Region" required="required" /><br>
-   
-   
-   
-           <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-       </form>
-    <h2>
-       THE FWI prediction is {{result}}
-    </h2>
-   <body>
+    <div class="container">
+        <div class="box login">
+            <h1>FWI Prediction</h1>
+            <form action="{{ url_for('predict_datapoint')}}" method="post">
+                <input type="text" name="Temperature" placeholder="Temperature" required />
+                <input type="text" name="RH" placeholder="Relative Humidity (RH)" required />
+                <input type="text" name="Ws" placeholder="Wind Speed (Ws)" required />
+                <input type="text" name="Rain" placeholder="Rainfall (Rain)" required />
+                <input type="text" name="FFMC" placeholder="Fine Fuel Moisture Code (FFMC)" required />
+                <input type="text" name="DMC" placeholder="Duff Moisture Code (DMC)" required />
+                <input type="text" name="ISI" placeholder="Initial Spread Index (ISI)" required />
+                <input type="text" name="Classes" placeholder="Fire Weather Index Class (Classes)" required />
+                <input type="text" name="Region" placeholder="Geographical Region" required />
+                <button type="submit">Predict</button>
+            </form>
+            <div class="prediction">
+                The FWI prediction is {{result}}
+            </div>
+        </div>
+        <div class="box parameters">
+            <h2>Parameter Definitions</h2>
+            <ul>
+                <li><strong>Temperature:</strong> Air temperature in degrees Celsius.</li>
+                <li><strong>Relative Humidity (RH):</strong> Percentage of atmospheric moisture.</li>
+                <li><strong>Wind Speed (Ws):</strong> Wind speed in km/h.</li>
+                <li><strong>Rainfall (Rain):</strong> Total rainfall in mm.</li>
+                <li><strong>Fine Fuel Moisture Code (FFMC):</strong> Moisture content of surface fuels.</li>
+                <li><strong>Duff Moisture Code (DMC):</strong> Moisture content of deeper organic layers.</li>
+                <li><strong>Initial Spread Index (ISI):</strong> Fire spread potential.</li>
+                <li><strong>Fire Weather Index Class (Classes):</strong> Classification of fire weather conditions.</li>
+                <li><strong>Geographical Region:</strong> Location of the prediction area.</li>
+            </ul>
+        </div>
+    </div>
+</body>
 </html>
